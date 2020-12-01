@@ -201,10 +201,13 @@ const input = [
   1667,
 ];
 
-// Find the 2 entries that total 2020
-// Return the result of those 2 values multiplied together
-
-function findEntries(values: number[], sum: number): number[] {
+/**
+ * Find the 2 entries that total 2020
+ *
+ * @param values
+ * @param sum
+ */
+function findTwoEntries(values: number[], sum: number): number[] {
   if (!values?.length) {
     return;
   }
@@ -215,9 +218,39 @@ function findEntries(values: number[], sum: number): number[] {
     }
   }
 
-  return findEntries(values.slice(1), sum);
+  return findTwoEntries(values.slice(1), sum);
+}
+// const entries = findTwoEntries(input, 2020);
+// console.log("entries", entries);
+// console.log(entries.reduce((a, b) => a * b));
+
+/**
+ * Find the 3 entries that total 2020
+ *
+ * @param values
+ * @param sum
+ */
+function findThreeEntries(values: number[], sum: number): number[] {
+  if (!values?.length) {
+    return;
+  }
+
+  for (let i = 1; i < values.length; i++) {
+    const val1 = values[0];
+    const val2 = values[i];
+    if (val1 + val2 < sum) {
+      for (let j = i + 1; j < values.length - 1; j++) {
+        const val3 = values[j];
+        if (val1 + val2 + val3 === sum) {
+          return [val1, val2, val3];
+        }
+      }
+    }
+  }
+
+  return findThreeEntries(values.slice(1), sum);
 }
 
-const entries = findEntries(input, 2020);
-console.log("entries", entries);
+const entries = findThreeEntries(input, 2020);
+// console.log("entries", entries);
 console.log(entries.reduce((a, b) => a * b));
