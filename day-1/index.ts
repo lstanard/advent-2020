@@ -236,13 +236,13 @@ function findThreeEntries(values: number[], sum: number): number[] {
   }
 
   for (let i = 1; i < values.length; i++) {
-    const val1 = values[0];
-    const val2 = values[i];
-    if (val1 + val2 < sum) {
+    if (
+      values[0] + values[i] < sum &&
+      values[0] + values[i] + Math.min(...values) < sum
+    ) {
       for (let j = i + 1; j < values.length - 1; j++) {
-        const val3 = values[j];
-        if (val1 + val2 + val3 === sum) {
-          return [val1, val2, val3];
+        if (values[0] + values[i] + values[j] === sum) {
+          return [values[0], values[i], values[j]];
         }
       }
     }
@@ -255,8 +255,9 @@ console.time("findEntries");
 const entries = findThreeEntries(input, 2020);
 // console.log("entries", entries);
 /**
- * findEntries: 4.39ms
- * findEntries: 5.375ms
+ * findEntries: 3.001ms
+ * findEntries: 3.047ms
+ * findEntries: 2.95ms
  */
 console.timeEnd("findEntries");
 console.log(entries.reduce((a, b) => a * b));
