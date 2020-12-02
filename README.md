@@ -1,5 +1,4 @@
 # Advent of Code 2020
 
-Simple TypeScript setup right now - run `../node_modules/typescript/bin/tsc index.ts`
-(or `tsc index.ts` with global install) in each day to compile, then `node index.js` to
-run the script. Might add some watch/compile features later.
+1. Run `yarn build` to compile
+2. Run `node src/day-X/index.js`, changing out the path depending on the day

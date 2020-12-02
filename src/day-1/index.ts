@@ -207,9 +207,9 @@ const input = [
  * @param values
  * @param sum
  */
-function findTwoEntries(values: number[], sum: number): number[] {
+function findTwoEntries(values: number[], sum: number): number[] | null {
   if (!values?.length) {
-    return;
+    return null;
   }
 
   for (let i = 1; i < values.length; i++) {
@@ -230,9 +230,9 @@ function findTwoEntries(values: number[], sum: number): number[] {
  * @param values
  * @param sum
  */
-function findThreeEntries(values: number[], sum: number): number[] {
+function findThreeEntries(values: number[], sum: number): number[] | null {
   if (!values?.length) {
-    return;
+    return null;
   }
 
   for (let i = 1; i < values.length; i++) {
@@ -260,4 +260,6 @@ const entries = findThreeEntries(input, 2020);
  * findEntries: 2.95ms
  */
 console.timeEnd("findEntries");
-console.log(entries.reduce((a, b) => a * b));
+if (entries) {
+  console.log(entries.reduce((a, b) => a * b));
+}

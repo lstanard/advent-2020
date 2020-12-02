@@ -8,27 +8,34 @@ function getParts(values: string[]): string[][] {
 
 function isValidPassword(entry: string[]): boolean {
   const [policy, character, password] = entry;
-  const [min, max] = policy.split("-");
-  const occurrences = [];
+  const [pos1, pos2] = policy.split("-");
+  const indexes = [];
   for (let i = 0; i < password.length; i++) {
     if (password[i] === character.replace(":", "")) {
-      occurrences.push(i);
+      indexes.push(i + 1);
     }
   }
-  if (occurrences.length >= Number(min) && occurrences.length <= Number(max)) {
+  if (
+    (indexes.includes(Number(pos1)) && !indexes.includes(Number(pos2))) ||
+    (indexes.includes(Number(pos2)) && !indexes.includes(Number(pos1)))
+  ) {
     return true;
   }
   return false;
 }
 
 function getValidPasswords(values: string[]) {
-  const passwords = getParts(values);
-  return passwords.filter((entry) => {
+  return getParts(values).filter((entry) => {
     if (isValidPassword(entry)) {
       return entry;
     }
   });
 }
 
+/**
+ * About 6-6.5ms
+ */
+console.time("find valid passwords");
 const validPasswords = getValidPasswords(input);
+console.timeEnd("find valid passwords");
 console.log("# of valid passwords: ", validPasswords.length);
