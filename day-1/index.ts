@@ -254,8 +254,9 @@ function findThreeEntries(values: number[], sum: number): number[] {
 console.time("findEntries");
 const entries = findThreeEntries(input, 2020);
 // console.log("entries", entries);
-console.log(entries.reduce((a, b) => a * b));
+/**
+ * findEntries: 4.39ms
+ * findEntries: 5.375ms
+ */
 console.timeEnd("findEntries");
-
-// findEntries: 12.275ms
-// findEntries: 13.776ms
+console.log(entries.reduce((a, b) => a * b));
