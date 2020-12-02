@@ -1,23 +1,14 @@
 import input from "./input";
 
-function getParts(values: string[]): string[][] {
-  return values.map((value: string) => {
-    return value.split(" ");
-  });
-}
-
 function isValidPassword(entry: string[]): boolean {
-  const [policy, character, password] = entry;
-  const [pos1, pos2] = policy.split("-");
-  const indexes = [];
-  for (let i = 0; i < password.length; i++) {
-    if (password[i] === character.replace(":", "")) {
-      indexes.push(i + 1);
-    }
-  }
+  let [policy, character, password] = entry;
+  let [pos1, pos2] = policy.split("-");
+  character = character.replace(":", "");
   if (
-    (indexes.includes(Number(pos1)) && !indexes.includes(Number(pos2))) ||
-    (indexes.includes(Number(pos2)) && !indexes.includes(Number(pos1)))
+    (password[Number(pos1) - 1] === character &&
+      password[Number(pos2) - 1] !== character) ||
+    (password[Number(pos1) - 1] !== character &&
+      password[Number(pos2) - 1] === character)
   ) {
     return true;
   }
@@ -25,15 +16,13 @@ function isValidPassword(entry: string[]): boolean {
 }
 
 function getValidPasswords(values: string[]) {
-  return getParts(values).filter((entry) => {
-    if (isValidPassword(entry)) {
-      return entry;
-    }
-  });
+  return values
+    .map((value) => value.split(" "))
+    .filter((entry) => isValidPassword(entry) && entry);
 }
 
 /**
- * About 6-6.5ms
+ * About 2-3ms
  */
 console.time("find valid passwords");
 const validPasswords = getValidPasswords(input);
