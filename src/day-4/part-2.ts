@@ -72,50 +72,17 @@ export const validatePassports = (filePath: string): string[] | undefined => {
     // Return true if all fields validate, return false if ANY field invalidates
     const validPassports = passportParts.every((field) => {
       const [key, value] = field.split(":");
-      const patterns = {
+      const patterns: Record<string, RegExp> = {
         hcl: /^#([a-f]|[0-9]){6}/g,
         ecl: /(amb|blu|brn|gry|grn|hzl|oth)/g,
         pid: /^([0-9]){9}$/g,
         eyr: /^(20[2|3]((?<=2)[0-9]|[0]))$/g,
         iyr: /^(20[1|2]((?<=1)[0-9]|[0]))$/g,
         byr: /^(19|20)(((?<=20)0[0-2])|((?<=19)[2-9][0-9]))/g,
+        hgt: /^(1[5-9]((?<=9)[0-3]|(?<=[5-8])[0-9])(?=cm)(cm)$)|^([5-7]((?<=7)[0-6]|(?<=[6])[0-9]|(?<=5)9)(?=in)(in)$)/g,
         cid: /.*/g,
       };
-
-      switch (key) {
-        case "cid":
-        case "byr":
-        case "eyr":
-        case "iyr":
-        case "hcl":
-        case "ecl":
-        case "pid": {
-          const isValid = patterns[key].test(value);
-          return isValid;
-        }
-        case "hgt": {
-          const units = value.slice(value.length - 2);
-          if (units !== "cm" && units !== "in") {
-            return false;
-          }
-          const digits = value.replace(units, "");
-          if (
-            units === "cm" &&
-            digits.length === 3 &&
-            (Number(digits) >= 150 || Number(digits) <= 193)
-          ) {
-            return true;
-          }
-          if (
-            units === "in" &&
-            digits.length === 2 &&
-            (Number(digits) >= 59 || Number(digits) <= 76)
-          ) {
-            return true;
-          }
-          return false;
-        }
-      }
+      return patterns[key].test(value);
     });
 
     return validPassports;
