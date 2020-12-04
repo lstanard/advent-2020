@@ -58,17 +58,19 @@ export const getFormattedPassports = (
  * @param filePath
  */
 export const validatePassports = (filePath: string): string[] | undefined => {
-  const passports = getFormattedPassports(filePath);
-  return passports?.filter((passport: string) => {
+  const formattedPassports = getFormattedPassports(filePath);
+  const passports = formattedPassports?.filter((passport: string) => {
     const passportParts = passport.split(" ");
-
-    // Passport has fewer than 7 fields, invalidate
-    if (passportParts.length < 7) {
-      return;
+    const testCid = /cid:/g;
+    if (
+      passportParts.length < 7 ||
+      (passportParts.length < 8 && passportParts.some((e) => testCid.test(e)))
+    ) {
+      return false;
     }
 
-    // Validate all passport fields
-    const validPassports = passportParts.every((field: string) => {
+    // Return true if all fields validate, return false if ANY field invalidates
+    const validPassports = passportParts.every((field) => {
       const [key, value] = field.split(":");
       const patterns = {
         hcl: /^#([a-f]|[0-9]){6}/g,
@@ -76,45 +78,57 @@ export const validatePassports = (filePath: string): string[] | undefined => {
         pid: /^([0-9]){9}$/g,
       };
 
-      // This should all be regex...
-      if (key === "eyr") {
-        return (
-          value.length === 4 && Number(value) >= 2020 && Number(value) <= 2030
-        );
-      } else if (key === "hcl" || key === "ecl" || key === "pid") {
-        return patterns[key].test(value);
-      } else if (key === "iyr") {
-        return (
-          value.length === 4 && Number(value) >= 2010 && Number(value) <= 2020
-        );
-      } else if (key === "byr") {
-        return (
-          value.length === 4 && Number(value) >= 1920 && Number(value) <= 2002
-        );
-      } else if (key === "hgt") {
-        const units = value.slice(value.length - 2);
-        if (units !== "cm" && units !== "in") {
+      switch (key) {
+        case "hcl":
+        case "ecl":
+        case "pid": {
+          const isValid = patterns[key].test(value);
+          return isValid;
+        }
+        case "cid":
+          return true;
+        case "eyr":
+          return (
+            value.length === 4 && Number(value) >= 2020 && Number(value) <= 2030
+          );
+        case "iyr":
+          return (
+            value.length === 4 && Number(value) >= 2010 && Number(value) <= 2020
+          );
+        case "byr":
+          return (
+            value.length === 4 && Number(value) >= 1920 && Number(value) <= 2002
+          );
+        case "hgt": {
+          const units = value.slice(value.length - 2);
+          if (units !== "cm" && units !== "in") {
+            return false;
+          }
+          const digits = value.replace(units, "");
+          if (
+            units === "cm" &&
+            digits.length === 3 &&
+            (Number(digits) >= 150 || Number(digits) <= 193)
+          ) {
+            return true;
+          }
+          if (
+            units === "in" &&
+            digits.length === 2 &&
+            (Number(digits) >= 59 || Number(digits) <= 76)
+          ) {
+            return true;
+          }
           return false;
         }
-        const digits = value.replace(units, "");
-        if (units === "cm" && (Number(digits) < 150 || Number(digits) > 193)) {
-          return false;
-        } else if (
-          units === "in" &&
-          (Number(digits) < 59 || Number(digits) > 76)
-        ) {
-          return false;
-        }
-        return true;
-      } else if (key === "cid") {
-        // ignored, missing or not
-        return true;
       }
     });
+
     return validPassports;
   });
+  return passports;
 };
 
-// First attempt 206, too high
+// correct answer is 198
 const validPassports = validatePassports("./input.txt");
 console.log("# of validPassports", validPassports?.length);
