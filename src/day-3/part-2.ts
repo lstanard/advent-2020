@@ -21,4 +21,4 @@ const slope3 = getTrees(5);
 const slope4 = getTrees(7);
 const slope5 = getTrees(1, 2);
 const result = slope1 * slope2 * slope3 * slope4 * slope5;
-console.log("result", result);
+console.log("result", result); // 1260601650
