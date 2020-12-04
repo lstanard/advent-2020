@@ -76,29 +76,23 @@ export const validatePassports = (filePath: string): string[] | undefined => {
         hcl: /^#([a-f]|[0-9]){6}/g,
         ecl: /(amb|blu|brn|gry|grn|hzl|oth)/g,
         pid: /^([0-9]){9}$/g,
+        eyr: /^(20[2|3]((?<=2)[0-9]|[0]))$/g,
+        iyr: /^(20[1|2]((?<=1)[0-9]|[0]))$/g,
+        byr: /^(19|20)(((?<=20)0[0-2])|((?<=19)[2-9][0-9]))/g,
+        cid: /.*/g,
       };
 
       switch (key) {
+        case "cid":
+        case "byr":
+        case "eyr":
+        case "iyr":
         case "hcl":
         case "ecl":
         case "pid": {
           const isValid = patterns[key].test(value);
           return isValid;
         }
-        case "cid":
-          return true;
-        case "eyr":
-          return (
-            value.length === 4 && Number(value) >= 2020 && Number(value) <= 2030
-          );
-        case "iyr":
-          return (
-            value.length === 4 && Number(value) >= 2010 && Number(value) <= 2020
-          );
-        case "byr":
-          return (
-            value.length === 4 && Number(value) >= 1920 && Number(value) <= 2002
-          );
         case "hgt": {
           const units = value.slice(value.length - 2);
           if (units !== "cm" && units !== "in") {
