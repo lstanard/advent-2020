@@ -6,7 +6,7 @@ import input from "./input";
  * @param values
  * @param sum
  */
-function findTwoEntries(values: number[], sum: number): number[] | null {
+export function findTwoEntries(values: number[], sum: number): number[] | null {
   if (!values?.length) {
     return null;
   }
@@ -20,7 +20,11 @@ function findTwoEntries(values: number[], sum: number): number[] | null {
   return findTwoEntries(values.slice(1), sum);
 }
 const entries = findTwoEntries(input, 2020);
-console.log("entries", entries);
+
+export function multiplyValues(values: number[]) {
+  return values.reduce((a, b) => a * b);
+}
+
 if (entries) {
-  console.log(entries.reduce((a, b) => a * b));
+  console.log(multiplyValues(entries));
 }
