@@ -1,5 +1,7 @@
 import { validatePassports } from "./part-1";
 
 describe("validatePassports", () => {
-  expect(validatePassports("./sample-input.txt")).toEqual(4);
+  it.skip("should return correct number of valid passports", () => {
+    expect(validatePassports("./sample-input.txt")).toEqual(4);
+  });
 });
