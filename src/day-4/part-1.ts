@@ -1,5 +1,7 @@
 import fs from "fs";
 
+import { getFormattedGroupedInput } from "../utils/getFormattedGroupedInput";
+
 /**
  * NOTE:
  * Wanted to try using node fs instead of a module import, but it seems
@@ -31,25 +33,9 @@ export const getFormattedPassports = (
   filePath: string
 ): string[] | undefined => {
   const input = readInputFile(filePath);
-  const rawData = input?.split("\n");
-
-  if (!rawData?.length) {
-    return;
+  if (input) {
+    return getFormattedGroupedInput(input);
   }
-
-  let line = 0;
-  const passports: string[] = [];
-  for (let i = line; i < rawData?.length; i++) {
-    if (rawData[i]) {
-      passports[line] = passports[line]?.length
-        ? `${passports[line]} ${rawData[i]}`
-        : rawData[i];
-    } else {
-      line += 1;
-    }
-  }
-
-  return passports;
 };
 
 /**
@@ -73,6 +59,6 @@ export const validatePassports = (filePath: string): string[] | undefined => {
   });
 };
 
-// Expect sample-input.txt to have 2 valid passports
-// const validPassports = validatePassports("./input.txt");
-// console.log("# of validPassports", validPassports?.length);
+const validPassports = validatePassports("./input.txt");
+// Expected correct answer = 256
+console.log("# of validPassports", validPassports?.length);
