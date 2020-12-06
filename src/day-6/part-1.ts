@@ -8,7 +8,7 @@ export function getYesCountSum(input: string) {
     for (let i = 0; i < values.length; i++) {
       const character = values[i];
       if (counter[character]) {
-        counter[character] = counter[character] + 1;
+        counter[character] += 1;
       } else {
         counter[character] = 1;
       }
