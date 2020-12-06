@@ -1,3 +1,5 @@
+import input from "./input";
+
 import { getFormattedGroupedInput } from "../utils/getFormattedGroupedInput";
 
 export function getGroupYesCountSum(input: string) {
@@ -41,3 +43,10 @@ export function getGroupYesCountSum(input: string) {
   });
   return groupYesCount?.reduce((a, b) => a + b);
 }
+
+/**
+ * Takes between 36-40ms. Could probably be improved.
+ */
+console.time("getGroupYesCountSum");
+console.log(getGroupYesCountSum(input));
+console.timeEnd("getGroupYesCountSum");
