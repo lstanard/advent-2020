@@ -74,5 +74,5 @@ export const validatePassports = (filePath: string): string[] | undefined => {
 };
 
 // Expect sample-input.txt to have 2 valid passports
-const validPassports = validatePassports("./input.txt");
-console.log("# of validPassports", validPassports?.length);
+// const validPassports = validatePassports("./input.txt");
+// console.log("# of validPassports", validPassports?.length);
