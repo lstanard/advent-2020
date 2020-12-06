@@ -1,5 +1,3 @@
-import input from "./input";
-
 export const SAMPLE_DATA = ["BFFFBBFRRR", "FFFBBBFRRR", "BBFFBBFRLL"];
 
 export interface SeatEntity {
@@ -58,7 +56,7 @@ export function decodePasses(values: string[]): SeatingTable {
 
 /**
  * Find the highest number seatId in the results from all decoded
- * boarding pass strings.
+ * boarding pass strings (solution for part 1)
  */
 export function getHighestSeatId(values: string[]): number {
   const decodedPasses = decodePasses(values);
@@ -67,30 +65,3 @@ export function getHighestSeatId(values: string[]): number {
   );
   return highestSeat.seatId;
 }
-
-export function getSortedSeatIds(values: string[]): number[] {
-  const decodedPasses = decodePasses(values);
-  const sortedSeats = Object.values(decodedPasses).sort(
-    (a, b) => a.seatId - b.seatId
-  );
-  return sortedSeats.map((entity) => entity.seatId);
-}
-
-export function getMySeat(values: string[]): number {
-  const decodedPasses = decodePasses(values);
-  console.log(decodedPasses);
-
-  const seatIds = getSortedSeatIds(values);
-  // console.log("seatIds", seatIds);
-
-  for (let i = 0; i < seatIds.length; i++) {
-    if (seatIds[i] - seatIds[i - 1] !== 1) {
-      console.log("missing seat id: ", seatIds[i]);
-    }
-  }
-
-  return 0;
-}
-
-const sortedSeatIds = getSortedSeatIds(input);
-console.log(sortedSeatIds.slice(600, sortedSeatIds.length));

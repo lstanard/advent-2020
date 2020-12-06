@@ -1,11 +1,6 @@
 import input from "./input";
-import {
-  decodePasses,
-  getHighestSeatId,
-  getSortedSeatIds,
-  getMySeat,
-  SAMPLE_DATA,
-} from "./part-1";
+import { decodePasses, getHighestSeatId, SAMPLE_DATA } from "./part-1";
+import { getSortedSeatIds, getMySeat } from "./part-2";
 
 describe("decodePasses", () => {
   it("should return the correct value", () => {
@@ -44,6 +39,6 @@ describe("getSortedSeatIds", () => {
 
 describe("getMySeat", () => {
   it("should return the correct value", () => {
-    expect(getMySeat(input)).toEqual(0);
+    expect(getMySeat(input)).toEqual(717);
   });
 });
