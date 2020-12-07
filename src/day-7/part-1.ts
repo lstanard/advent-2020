@@ -59,3 +59,10 @@ export function findParentBags(input: string[], target: string): number {
   countTargetParentBags(rules, target);
   return Object.values(results).length;
 }
+
+/**
+ * Takes ~72-73ms to execute
+ */
+// console.time("findParentBags");
+// findParentBags(input, "shiny gold");
+// console.timeEnd("findParentBags");
