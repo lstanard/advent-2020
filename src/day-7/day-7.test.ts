@@ -1,5 +1,6 @@
 import input from "./input";
 import { findParentBags } from "./part-1";
+import { findTotalNestedBags } from "./part-2";
 
 export const SAMPLE_INPUT = [
   "light red bags contain 1 bright white bag, 2 muted yellow bags.",
@@ -13,12 +14,38 @@ export const SAMPLE_INPUT = [
   "dotted black bags contain no other bags.",
 ];
 
+export const SAMPLE_INPUT_2 = [
+  "shiny gold bags contain 2 dark red bags.",
+  "dark red bags contain 2 dark orange bags.",
+  "dark orange bags contain 2 dark yellow bags.",
+  "dark yellow bags contain 2 dark green bags.",
+  "dark green bags contain 2 dark blue bags.",
+  "dark blue bags contain 2 dark violet bags.",
+  "dark violet bags contain no other bags.",
+];
+
 describe("findParentBags", () => {
   it("should return the correct value for SAMPLE_INPUT", () => {
     expect(findParentBags(SAMPLE_INPUT, "shiny gold")).toEqual(4);
   });
 
   it("should return the correct value for input", () => {
-    expect(findParentBags(input, "shiny gold")).toEqual(4);
+    expect(findParentBags(input, "shiny gold")).toEqual(235);
+  });
+});
+
+describe("findTotalNestedBags", () => {
+  it("should return the correct value for SAMPLE_INPUT", () => {
+    expect(findTotalNestedBags(SAMPLE_INPUT, "shiny gold")).toEqual(32);
+  });
+
+  it("should return the correct value for SAMPLE_INPUT_2", () => {
+    // Formula that results in expected output:
+    // expect(2 + 2 * (2 + 2 * (2 + 2 * (2 + 2 * (2 + 2 * 2))))).toEqual(126);
+    expect(findTotalNestedBags(SAMPLE_INPUT_2, "shiny gold")).toEqual(126);
+  });
+
+  it("should return the correct value for input", () => {
+    expect(findTotalNestedBags(input, "shiny gold")).toEqual(126);
   });
 });

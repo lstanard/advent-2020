@@ -39,6 +39,13 @@ export function parseRulesInput(input: string[]): Rules {
   return rules;
 }
 
+/**
+ * Gets solution for Part 1 - total number of parent bags that could
+ * contain the given 'target' bag color
+ *
+ * @param input
+ * @param target
+ */
 export function findParentBags(input: string[], target: string): number {
   const rules: Rules = parseRulesInput(input);
   let results: Record<string, boolean> = {};
