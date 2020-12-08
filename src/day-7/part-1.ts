@@ -1,8 +1,5 @@
 export interface Rule {
-  color: string;
-  contains: {
-    [key: string]: number;
-  };
+  [key: string]: number;
 }
 
 export interface Rules {
@@ -17,25 +14,21 @@ export interface Rules {
  */
 export function parseRulesInput(input: string[]): Rules {
   const rules: Rules = {};
-  for (let i = 0; i < input.length; i++) {
-    const line = input[i];
-    const [color, contents] = line.split(" bags contain ");
-    const rule: Rule = {
-      color,
-      contains: {},
-    };
-    if (!contents.includes("no other bags")) {
-      const contentsRules = contents.split(/, /);
-      for (let j = 0; j < contentsRules.length; j++) {
-        const qty = contentsRules[j].slice(0, 1);
-        const childColor = contentsRules[j].replace(/ bag(s*)(.*)/, "");
-        rule["contains"][
-          `${childColor.substring(2, childColor.length)}`
-        ] = Number(qty);
+  input.forEach((rule) => {
+    const [color, contents] = rule.split(" bags contain ");
+    const nestedBags = contents.split(/, /);
+    rules[color] = {};
+    nestedBags.forEach((bag) => {
+      const qty = bag.slice(0, 1).match(/\d/) ? bag.slice(0, 1) : 0;
+      let childColor = bag.replace(/ bag(s*)(.*)/, "");
+      if (childColor.indexOf("no other") > -1) {
+        rules[color] = {};
+      } else {
+        childColor = childColor.substring(2, childColor.length);
+        rules[color][`${childColor}`] = Number(qty);
       }
-    }
-    rules[color] = rule;
-  }
+    });
+  });
   return rules;
 }
 
@@ -51,13 +44,10 @@ export function findParentBags(input: string[], target: string): number {
   let results: Record<string, boolean> = {};
   function countTargetParentBags(rulesInput: Rules, targetColor: string) {
     Object.entries(rulesInput).forEach(([key, value]) => {
-      if (key === targetColor || !Object.values(value.contains).length) {
+      if (key === targetColor || !Object.values(value).length) {
         return;
       }
-      if (
-        value.contains.hasOwnProperty(targetColor) &&
-        !results.hasOwnProperty(key)
-      ) {
+      if (value.hasOwnProperty(targetColor) && !results.hasOwnProperty(key)) {
         results[key] = true;
         countTargetParentBags(rulesInput, key);
       }
