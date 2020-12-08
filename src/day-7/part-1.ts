@@ -25,7 +25,7 @@ export function parseRulesInput(input: string[]): Rules {
         rules[color] = {};
       } else {
         childColor = childColor.substring(2, childColor.length);
-        rules[color][`${childColor}`] = Number(qty);
+        rules[color][childColor] = Number(qty);
       }
     });
   });

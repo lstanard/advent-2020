@@ -68,12 +68,10 @@ describe("findTotalNestedBags", () => {
   });
 
   it("should return the correct value for SAMPLE_INPUT_2", () => {
-    // Formula that results in expected output:
-    // expect(2 + 2 * (2 + 2 * (2 + 2 * (2 + 2 * (2 + 2 * 2))))).toEqual(126);
     expect(findTotalNestedBags(SAMPLE_INPUT_2, "shiny gold")).toEqual(126);
   });
 
   it("should return the correct value for input", () => {
-    expect(findTotalNestedBags(input, "shiny gold")).toEqual(126);
+    expect(findTotalNestedBags(input, "shiny gold")).toEqual(158493);
   });
 });
