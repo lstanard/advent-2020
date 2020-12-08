@@ -119,7 +119,7 @@ function testProgramExec(commands: string[]): ProgramResults {
  * and testing the execution of each new set of commands until
  * a result yields a successful termination.
  */
-function fixProgram() {
+function fixProgramInput() {
   const input = readInputFile("./input.txt");
   const commands = input?.split("\n");
 
@@ -152,7 +152,7 @@ function fixProgram() {
  *
  * Executes in 21ms
  */
-console.time("fixProgram");
-const acc = fixProgram();
-console.timeEnd("fixProgram");
+console.time("fixProgramInput");
+const acc = fixProgramInput();
+console.timeEnd("fixProgramInput");
 console.log("acc", acc);
