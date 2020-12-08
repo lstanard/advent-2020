@@ -14,6 +14,9 @@ export const readInputFile = (filePath: string): string | undefined => {
   }
 };
 
+/**
+ * Solution for Part 1
+ */
 function getAccValue(): number | undefined {
   const input = readInputFile("./input.txt");
   const commands = input?.split("\n");
