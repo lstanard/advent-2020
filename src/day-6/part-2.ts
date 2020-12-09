@@ -47,6 +47,6 @@ export function getGroupYesCountSum(input: string) {
 /**
  * Takes between 36-40ms. Could probably be improved.
  */
-console.time("getGroupYesCountSum");
-console.log(getGroupYesCountSum(input));
-console.timeEnd("getGroupYesCountSum");
+// console.time("getGroupYesCountSum");
+// console.log(getGroupYesCountSum(input));
+// console.timeEnd("getGroupYesCountSum");

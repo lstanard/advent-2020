@@ -1,4 +1,3 @@
-import input from "./input";
 import { findNumberWithoutSum } from "./part-1";
 
 /**
@@ -42,8 +41,9 @@ export function findContiguousSubsetAndSum(
 }
 
 /**
- * Executes in ~152ms, not as bad as I thought it might be
+ * Executes in ~152ms, not as bad as I thought it might be,
+ * but I could shave some time off for sure.
  */
-console.time("findContiguousSubsetAndSum");
-console.log(findContiguousSubsetAndSum(input));
-console.timeEnd("findContiguousSubsetAndSum");
+// console.time("findContiguousSubsetAndSum");
+// console.log(findContiguousSubsetAndSum(input));
+// console.timeEnd("findContiguousSubsetAndSum");
