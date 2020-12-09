@@ -26,5 +26,5 @@ export function multiplyValues(values: number[]) {
 }
 
 if (entries) {
-  console.log(multiplyValues(entries));
+  // console.log(multiplyValues(entries));
 }
