@@ -8,6 +8,10 @@ import { parseRulesInput, Rules } from "./part-1";
  * @param target
  */
 export function findTotalNestedBags(input: string[], target: string): number {
+  /**
+   * NOTE: This could be improved, I could pass the already parsed results,
+   * instead of calling parseRulesInput every time. Being a little lazy.
+   */
   const rules: Rules = parseRulesInput(input);
   let total = 0;
 
