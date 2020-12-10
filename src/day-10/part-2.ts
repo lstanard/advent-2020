@@ -13,12 +13,9 @@ export function findTotalCombinations(input: number[]) {
   ) {
     if (!currentSet.length) {
       currentSet.push(numbers[0]);
-      const nextNumbers = numbers.filter((n) => !currentSet.includes(n));
-      getResultsSets(nextNumbers, end, currentSet);
-    } else if (
-      currentSet[currentSet.length - 1] === end &&
-      !results.hasOwnProperty(currentSet.toString())
-    ) {
+      numbers.slice(0, 1);
+      getResultsSets(numbers, end, currentSet);
+    } else if (currentSet[currentSet.length - 1] === end) {
       results[currentSet.toString()] = true;
     } else if (numbers.length) {
       const prev =
@@ -30,8 +27,8 @@ export function findTotalCombinations(input: number[]) {
         if (numbers.includes(prev + i)) {
           const nextSet = [...currentSet];
           nextSet.push(prev + i);
-          const nextNumbers = numbers.filter((n) => !nextSet.includes(n));
-          getResultsSets(nextNumbers, end, nextSet);
+          numbers.slice(0, numbers.indexOf(prev + i));
+          getResultsSets(numbers, end, nextSet);
         }
       }
     }
@@ -41,6 +38,6 @@ export function findTotalCombinations(input: number[]) {
   return Object.values(results).length;
 }
 
-console.time("findTotalCombinations");
-console.log(findTotalCombinations(input));
-console.timeEnd("findTotalCombinations");
+// console.time("findTotalCombinations");
+// console.log(findTotalCombinations(input));
+// console.timeEnd("findTotalCombinations");

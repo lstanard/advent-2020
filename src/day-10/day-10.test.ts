@@ -27,7 +27,7 @@ describe("findTotalCombinations", () => {
     expect(findTotalCombinations(sampleInput2)).toEqual(19208);
   });
 
-  it("should return the correct value for input", () => {
+  it.skip("should return the correct value for input", () => {
     expect(findTotalCombinations(input)).toEqual(0);
   });
 });
