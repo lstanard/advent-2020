@@ -70,7 +70,7 @@ export default {
 
   // An array of file extensions your modules use
   // When I include both ["js", "ts"] it runs all of the tests twice, but I can't exclude "js", it's required?
-  moduleFileExtensions: ["js"],
+  moduleFileExtensions: ["js", "ts"],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   // moduleNameMapper: {},
