@@ -40,4 +40,26 @@ export function findTotalCombinations(input: number[]) {
 
 // console.time("findTotalCombinations");
 // console.log(findTotalCombinations(input));
-// console.timeEnd("findTotalCombinations");
+// console.timeEnd("findTotalCombinations");}
+
+/**
+ * Wasn't able to get this one on my own, credit reddit user /iamflimflam1.
+ * Need to study up on dynamic programming concepts - also
+ * going to try tweaking my previous recursive solution with memoization.
+ *
+ * @param adapters
+ */
+export function findTotalCombinationsDynamic(adapters: number[]) {
+  const max = Math.max(...adapters);
+  adapters.push(max + 3);
+  const filter = new Set(adapters);
+  const result: Record<number, number> = {};
+  result[0] = 1;
+  for (let i = 1; i <= max + 3; i++) {
+    if (filter.has(i)) {
+      result[i] =
+        (result[i - 1] || 0) + (result[i - 2] || 0) + (result[i - 3] || 0);
+    }
+  }
+  return result[max + 3];
+}

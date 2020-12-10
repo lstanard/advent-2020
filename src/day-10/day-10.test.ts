@@ -2,7 +2,7 @@ import input from "./input";
 import sampleInput1 from "./sample-input-1";
 import sampleInput2 from "./sample-input-2";
 import { findAdapterDifferences } from "./part-1";
-import { findTotalCombinations } from "./part-2";
+import { findTotalCombinations, findTotalCombinationsDynamic } from "./part-2";
 
 describe("findAdapterDifferences", () => {
   it("should return the correct value for sampleInput1", () => {
@@ -27,7 +27,7 @@ describe("findTotalCombinations", () => {
     expect(findTotalCombinations(sampleInput2)).toEqual(19208);
   });
 
-  it.skip("should return the correct value for input", () => {
-    expect(findTotalCombinations(input)).toEqual(0);
+  it("should return the correct value for input", () => {
+    expect(findTotalCombinationsDynamic(input)).toEqual(74049191673856);
   });
 });
